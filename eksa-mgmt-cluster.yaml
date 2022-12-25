@@ -1,0 +1,106 @@
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: Cluster
+metadata:
+  name: example-cluster
+spec:
+  clusterNetwork:
+    cniConfig:
+      cilium: {}
+    pods:
+      cidrBlocks:
+      - 10.100.0.0/16
+    services:
+      cidrBlocks:
+      - 10.200.0.0/16
+  controlPlaneConfiguration:
+    count: 3
+    endpoint:
+      host: "172.24.35.222"
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: example-cluster-controlplane
+  datacenterRef:
+    kind: VSphereDatacenterConfig
+    name: example-cluster
+  externalEtcdConfiguration:
+    count: 3
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: example-cluster-etcd
+  kubernetesVersion: "1.24"
+  managementCluster:
+    name: example-cluster
+  workerNodeGroupConfigurations:
+  - count: 4
+    machineGroupRef:
+      kind: VSphereMachineConfig
+      name: example-cluster
+    name: worker
+    
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereDatacenterConfig
+metadata:
+  name: example-cluster
+spec:
+  datacenter: "Datacenter"
+  insecure: true
+  network: "/MyDatacenter/network/My Network"
+  server: "https://my-vsphere.example.local"
+  thumbprint: "insecure"
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: example-cluster-controlplane
+spec:
+  datastore: "/MyDatacenter/datastore/MyDatastore2"
+  diskGiB: 25
+  folder: "/MyDatacenter/vm/OrgDirectory/MyVMs"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "/MyDatacenter/host/Cluster-03/MyResourcePool"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAA...
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: example-cluster-worker
+spec:
+  datastore: "/MyDatacenter/datastore/MyDatastore2"
+  diskGiB: 25
+  folder: "/MyDatacenter/vm/OrgDirectory/MyVMs"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "/MyDatacenter/host/Cluster-03/MyResourcePool"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAA...
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: VSphereMachineConfig
+metadata:
+  name: example-cluster-etcd
+spec:
+  datastore: "/MyDatacenter/datastore/MyDatastore2"
+  diskGiB: 25
+  folder: "/MyDatacenter/vm/OrgDirectory/MyVMs"
+  memoryMiB: 8192
+  numCPUs: 2
+  osFamily: bottlerocket
+  resourcePool: "/MyDatacenter/host/Cluster-03/MyResourcePool"
+  users:
+  - name: ec2-user
+    sshAuthorizedKeys:
+    - ssh-rsa AAAA...
+
+---
