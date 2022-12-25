@@ -4,6 +4,8 @@ Follow the next steps and use links.
 
 Good luck, have fun!
 
+---
+
 1. Document all network accesses
     - Requirements:
         - `vCenter endpoint` (must be accessible to EKS Anywhere clusters)
