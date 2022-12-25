@@ -33,7 +33,7 @@ Good luck, have fun!
             - `range;`
             - `option subnet-mask;`
             - `option routers;`
-                - `option domain-name-servers;`
+            - `option domain-name-servers;`
             - <details><summary>example:</summary>
 
                 ```
@@ -49,10 +49,10 @@ Good luck, have fun!
 
 
                 subnet 10.8.105.0 netmask 255.255.255.0 {
-                range 10.8.105.9  10.8.105.41;
-                option subnet-mask 255.255.255.0;
-                option routers 10.8.105.1;
-                option domain-name-servers dc01.example.local, dc02.example.local;;
+                    range 10.8.105.9  10.8.105.41;
+                    option subnet-mask 255.255.255.0;
+                    option routers 10.8.105.1;
+                    option domain-name-servers dc01.example.local, dc02.example.local;;
                 }
                 ```
 
