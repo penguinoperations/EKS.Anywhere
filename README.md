@@ -233,4 +233,4 @@ Good luck, have fun!
 ## Authors
 
 - [@patarakaci](https://github.com/patarakaci)
-- [@sanny](https://www.linkedin.com/in/alexander-kvaichadze-a2256495/)
+- [@akvaichadze](https://github.com/akvaichadze)
